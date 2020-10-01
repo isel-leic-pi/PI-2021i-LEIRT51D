@@ -1,2 +1,3 @@
-# PI-2021i-LEIRT51D
-Repositório das aulas de PI da turma LEIRT51D do 1º semestre de 2020/2021
+## ISEL - Programação na Internet
+### LEIRT51D - Inverno de 2020
+Aulas de Programação na Internet da turma LEIRT51D no inverno de 2020
