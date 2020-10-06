@@ -1,6 +1,6 @@
 ## ISEL - Programação na Internet
 ### LEIRT51D - Inverno de 2020
-Aulas de Programação na Internet da turma LEIRT51D no inverno de 2020
+Aulas de Programação na Internet da turma LEIRT51D no semestre de inverno de 2020/2021
 
 #### Comunicação
 * [Slack](https://isel-leic-pi-2020-1.slack.com)
