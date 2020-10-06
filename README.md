@@ -12,3 +12,6 @@ Aulas de Programação na Internet da turma LEIRT51D no inverno de 2020
 * 3ªs feiras (11h10 .. 12h20) - Turno 1 : [Join Zoom](https://videoconf-colibri.zoom.us/j/84990506880)
 * 3ªs feiras (12h40 .. 13h50) - Turno 2 : [Join Zoom](https://videoconf-colibri.zoom.us/j/84990506880)
 * 6ªs feiras (11h10 .. 13h50) : [Join Zoom](https://videoconf-colibri.zoom.us/j/84990506880)
+
+#### Moodle
+* [Moodle@ISEL](https://2021moodle.isel.pt/) (turma ainda não disponível)
