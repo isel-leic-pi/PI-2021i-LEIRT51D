@@ -12,4 +12,4 @@ Aulas de Programação na Internet da turma LEIRT51D no semestre de inverno de 2
 
 #### Comunicação
 * [Slack](https://isel-leic-pi-2020-1.slack.com)
-* [Moodle@ISEL](https://2021moodle.isel.pt/) (turma ainda não disponível)
+* [Moodle@ISEL](https://2021moodle.isel.pt/course/view.php?id=5664)
