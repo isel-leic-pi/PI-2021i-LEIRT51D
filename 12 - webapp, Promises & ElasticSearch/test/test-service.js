@@ -9,9 +9,11 @@ describe('Service', function () {
 		it('should return empty array for 0 items', function (done) {
 			// Arrange
 			const storage = {
-				readAllItems: function (done) {
-					setImmediate(() => {
-						done(null, null)
+				readAllItems: function () {
+					return new Promise((resolve, reject) => { 
+						setImmediate(() => {
+							resolve(null)
+						})
 					})
 				}
 			}
@@ -19,7 +21,8 @@ describe('Service', function () {
 			const service = serviceCreator(storage, quotes)
 			
 			// Act
-			service.getAllItems((err, items) => {
+			service.getAllItems()
+			.then(items => {
 
 				// Assert
 				expect(items).to.be.an('array').that.is.empty
@@ -29,9 +32,11 @@ describe('Service', function () {
 		})
 		it('should return an array with length of 1 for 1 items', function (done) {
 			const storage = {
-				readAllItems: function (done) {
-					setImmediate(() => {
-						done(null, ['alpha'])
+				readAllItems: function () {
+					return new Promise((resolve, reject) => { 
+						setImmediate(() => {
+							resolve(['alpha'])
+						})
 					})
 				}
 			}
@@ -39,7 +44,8 @@ describe('Service', function () {
 			const service = serviceCreator(storage, quotes)
 			
 			// Act
-			service.getAllItems((err, items) => {
+			service.getAllItems()
+			.then(items => {
 
 				// Assert
 				expect(items).to.be.an('array').with.a.lengthOf(1)

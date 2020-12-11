@@ -6,38 +6,18 @@ function service(storage, quotes) {
 	
 	const theService = {
 
-		getQuote: (resFunc) => {
-			quotes.getQuote((err, quote) => {
-				if (!err) {
-					resFunc(null, quote)
-				} else {
-					// TO DO : translate errors?
-					resFunc(err)
-				}
-			})
+		getQuote: async () => quotes.getQuote(),
+
+		getAllItems: async () => {
+			const items = await storage.readAllItems()
+			return items || []
 		},
 
-		getAllItems: (resFunc) => {
-			storage.readAllItems((err, items) => {
-				if (!err) {
-					resFunc(null, items || [])
-				} else {
-					// TO DO : translate errors
-				}
-			})
-		},
-
-		newItem: (item, resFunc) => {
+		newItem: async (item) => {
 			if (item && item.text) {
-				storage.createItem(item.text, (err, id) => {
-					if (!err) {
-						resFunc(null, id)
-					} else {
-						// TO DO : translate errors
-					}
-				})
+				return storage.createItem(item.text)
 			} else {
-				resFunc(error.MISSING_ARGUMENT, null)
+				throw error.MISSING_ARGUMENT
 			}
 		}
 	}

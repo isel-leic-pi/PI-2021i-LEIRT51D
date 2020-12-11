@@ -7,7 +7,7 @@
     "test": "test"
   },
   "scripts": {
-	"start": "node items-server.js",
+    "start": "node items-server.js",
     "test": "mocha"
   },
   "keywords": [],
@@ -15,6 +15,7 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
+    "node-fetch": "^2.6.1",
     "urllib": "^2.36.1"
   },
   "devDependencies": {

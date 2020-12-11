@@ -1,27 +1,23 @@
 'use strict'
 
-const urllib = require('urllib')
+const fetch = require('node-fetch')
 const error = require('./items-errors.js')
 
 module.exports = {
 
-	getQuote: function (done) {
+	getQuote: async function () {
 		
-		urllib.request('https://loripsum.net/api/1/short/plaintext',
-			(err, data, res) => {
-				if (!err) {
-					if (res.statusCode == 200) {
-						done(null, data.slice(57, -3).toString())
-					} else {
-						// TO DO : translate errors
-						done(error.EXTERNAL_SERVICE_FAILURE)
-					}
-				} else {
-					// TO DO : translate errors
-					done(error.EXTERNAL_SERVICE_FAILURE)
-				}
+		try {
+			const response = await fetch('https://loripsum.net/api/1/short/plaintext')
+			if (response.status == 200) {
+				const data = await response.text()
+				return data.slice(57, -3).toString()
 			}
-		)
+			console.log("quotes", "statusCode:", response.statusCode)
+		} catch (err) {
+			console.log("quotes", "error", err)
+		}
+		throw error.EXTERNAL_SERVICE_FAILURE
 		
 	}
 	
