@@ -26,6 +26,8 @@ const webui = webuiCreator(service)
 app.use('/api', webapi);
 app.use(webui);
 
+app.use('/public', express.static('my-static-files'));
+
 app.set('view engine', 'hbs')
 
 app.listen(port)

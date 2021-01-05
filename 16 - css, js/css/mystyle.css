@@ -1,0 +1,35 @@
+em { background-color: yellow }
+
+table, th, td {
+	border-style: solid;
+	border-width: 1px;
+	border-collapse: collapse
+}
+
+th {
+	background-color: #b0b0b0
+}
+
+tr:nth-child(even) {
+	background-color: #cccccc
+}
+
+td:nth-child(1), td:nth-child(3) {
+	text-align: center
+} 
+
+h1 { background-color: grey }
+
+h2 { background-color: grey }
+
+#lic, #leirt { color: red }
+
+.info { background-color: #d0d0d0 }
+
+div > .info {
+	color: green
+}
+
+a:visited {
+	color: orange
+}
