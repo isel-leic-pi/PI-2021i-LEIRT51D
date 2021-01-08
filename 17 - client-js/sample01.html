@@ -1,0 +1,25 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>ISEL - LEIRT - PI</title>
+	</head>
+	<body>
+		<input type='button' value='Change!' onclick='doChange()'>
+	
+		<h3 id='isel'>ISEL</h3>
+		<h3 id='leirt'>LEIRT</h3>
+		
+		<script>
+			const headers = document.querySelectorAll('h3');
+			//const isel = document.querySelectorAll('h3')[0];
+			const isel = document.querySelector('#isel');
+			const leirt = document.querySelector('#leirt');
+			
+			function doChange() {
+				headers.forEach(elem => elem.style.fontSize = 'xx-large')
+				isel.style.color = 'red';
+				leirt.style.color = 'blue';
+			}
+		</script>
+	</body>
+</html>
