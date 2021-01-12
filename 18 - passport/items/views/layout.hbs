@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset='utf-8'>
+		<title>Items</title>
+		<link href="/public/css/style.css" rel="stylesheet" type="text/css">
+	</head>
+	<body>
+		<nav>
+			<div class='navbar'>
+				<div class='navigation'>
+					<a href="/">Home</a> | 
+					<a href="/quote">Quote</a> |
+					<a href="/insert">Insert</a> |
+					<a href="/items">List</a>
+				</div>
+				<div id='userinfo'>
+					<span class='userinfo'>
+						{{#if user}}
+							User: {{user.username}} | 
+							<a href="/logout">Logout</a>
+						{{else}}
+							<a href="/login">Login</a>
+						{{/if}}
+					</span>
+				</div>
+			</div>		
+		</nav>
+		<hr>
+		{{{body}}}
+	</body>
+</html>
