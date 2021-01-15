@@ -46,10 +46,10 @@ const users = {
 module.exports = (app) => {
 	
 	app.use(session({
-		resave: false,
-		saveUninitialized: false,
+		resave: true,
+		saveUninitialized: true,
 		secret: 'isel-leirt',
-		store: FileStore()
+		store: new FileStore()
 	}))
 
 	app.use(passport.initialize())

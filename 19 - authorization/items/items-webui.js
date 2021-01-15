@@ -5,6 +5,33 @@ const express = require('express')
 const error = require('./items-errors.js')
 
 function webui(auth, service) {
+
+	function onError(res, err, msg) {
+		
+		function sendError(code, errorMsg) {
+			console.log(`ERROR #${err}:`, errorMsg)
+			res.statusCode = code;
+			res.send(`<html><body><strong>ERROR</strong> ${errorMsg}</body></html>`)
+		}
+		
+		switch (err) {
+			case error.UNAUTHENTICATED:
+				sendError(401, 'This operation requires login.')
+				break;
+			case error.UNAUTHORIZED:
+				sendError(403, 'Operation not allowed for this user.')
+				break;
+			case error.MISSING_ARGUMENT:
+				sendError(400, 'Missing argument.')
+				break;
+			case error.EXTERNAL_SERVICE_FAILURE:
+				sendError(502, 'External service failure.')
+				break;
+			default:
+				sendError(500, msg)
+				break;
+		}
+	}
 	
 	const theWebUI = {
 
@@ -39,15 +66,13 @@ function webui(auth, service) {
 		},
 		
 		list: (req, res) => {
-			service.getAllItems()
+			service.getAllItems(req.user)
 			.then(items => {
 				const answer = { 'user': req.user, 'items': items, 'size': items.length }
 				res.render('list', answer)
 			})
 			.catch(err => {
-				console.log('ERROR', 'Failed to get items.', err)
-				res.statusCode = 500;
-				res.send(`<html><body><strong>ERROR</strong> ${err}</body></html>`)
+				onError(res, err, 'Failed to get items.')
 			})
 		},
 		
@@ -63,7 +88,7 @@ function webui(auth, service) {
 
 			const item = { text: req.body.txtItem }
 
-			service.newItem(item)
+			service.newItem(req.user, item)
 			.then(id => {
 				const answer = { 'id': id }
 				setTimeout(() => { // Allow elasticsearch to update the index
@@ -71,43 +96,18 @@ function webui(auth, service) {
 				}, 1000);
 			})
 			.catch(err => {
-				// Error handling incomplete! To be continued...
-				switch (err) {
-					case error.MISSING_ARGUMENT:
-						console.log('ERROR', 'Missing argument.', err)
-						res.statusCode = 400;
-						res.send(`<html><body><strong>ERROR</strong> Missing argument</body></html>`)
-						break;
-					default:
-						console.log('ERROR', 'Failed to publish items.', err)
-						res.statusCode = 500;
-						res.send(`<html><body><strong>ERROR</strong> Failed to publish items</body></html>`)
-						break;
-				}
+				onError(res, err, 'Failed to publish items.')
 			})
 		},
 		
 		quote: (req, res) => {
-			service.getQuote()
+			service.getQuote(req.user)
 			.then(quote => {
 				const answer = { 'user': req.user, 'quote': quote }
 				res.render('quote', answer)
 			})
 			.catch(err => {
-				// Error handling incomplete! To be continued...
-				switch (err) {
-					case error.EXTERNAL_SERVICE_FAILURE:
-						console.log('ERROR', 'External service failure.', err)
-						res.statusCode = 502;
-						res.send(`<html><body><strong>ERROR</strong> External service failure</body></html>`)
-						break;
-					default:
-						console.log('ERROR', 'Failed to get quote.', err)
-						res.statusCode = 502;
-						res.send(`<html><body><strong>ERROR</strong> Failed to get quote</body></html>`)
-						break;
-				}
-				res.redirect('/')
+				onError(res, err, 'Failed to get quote.')
 			})
 		}
 	}
