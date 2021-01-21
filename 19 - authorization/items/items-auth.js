@@ -79,7 +79,7 @@ module.exports = (app) => {
 		}),
 		logout: (req) => new Promise((resolve, reject) => {
 			req.logout()
-			req.session.destroy(err => {
+			req.session.save(() => {
 				resolve()
 			})
 		})
