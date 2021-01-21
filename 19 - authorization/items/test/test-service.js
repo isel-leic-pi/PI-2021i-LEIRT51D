@@ -4,6 +4,14 @@ const expect = require('chai').expect
 
 const serviceCreator = require('../items-service.js')
 
+const almightyUser = {
+	username: "almighty",
+	password: 1234,
+	canList: true,
+	canInsert: true,
+	canGetQuote: true
+}
+
 describe('Service', function () {
 	describe('getAllItems', function() {
 		it('should return empty array for 0 items', function (done) {
@@ -21,7 +29,7 @@ describe('Service', function () {
 			const service = serviceCreator(storage, quotes)
 			
 			// Act
-			service.getAllItems()
+			service.getAllItems(almightyUser)
 			.then(items => {
 
 				// Assert
@@ -44,7 +52,7 @@ describe('Service', function () {
 			const service = serviceCreator(storage, quotes)
 			
 			// Act
-			service.getAllItems()
+			service.getAllItems(almightyUser)
 			.then(items => {
 
 				// Assert

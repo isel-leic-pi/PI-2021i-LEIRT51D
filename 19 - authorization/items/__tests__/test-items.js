@@ -1,6 +1,7 @@
 'use strict';
 
 const frisby = require('frisby');
+const setCookieParser = require('set-cookie-parser');
 
 const base_url = 'http://localhost:8888/api'
 
@@ -11,6 +12,34 @@ describe(`Integration tests on ${base_url}`, () => {
 			return frisby.get(`${base_url}/`)
 		});
 	});
+	
+	describe("Testing 'login'", () => {
+		describe('POST /login', () => {
+			it ('should accept a valid login', () => {
+				return frisby
+					.post(`${base_url}/login`, {
+						"username": "admin",
+						"password": "admin"
+					})
+					.expect('status', 200)
+					.expect('header', 'Content-Type', 'application/json; charset=utf-8')
+					.expect('json', 'result', 'ok')
+					.then(res => {
+						const sessionCookie = setCookieParser.parseString(
+							res.headers.get('set-cookie')
+						)
+
+						frisby.globalSetup({
+							request: {
+								headers: {
+									'Cookie': `${sessionCookie.name}=${sessionCookie.value}`
+								}
+							}
+						})
+					})
+			})
+		})
+	})
 	
 	describe("Testing 'quotes'", () => {
 		describe('GET /quotes', () => {
@@ -66,6 +95,18 @@ describe(`Integration tests on ${base_url}`, () => {
 						expect(res.json.items.length)
 							.toEqual(res.json.size);
 					});
+			});
+		});						
+	})
+	
+	describe("Testing 'logout'", () => {
+		describe('POST /logout', () => {
+			it ('should accept logout', () => {
+				return frisby
+					.post(`${base_url}/logout`)
+					.expect('status', 200)
+					.expect('header', 'Content-Type', 'application/json; charset=utf-8')
+					.expect('json', 'result', 'ok')
 			});
 		});
 	});
